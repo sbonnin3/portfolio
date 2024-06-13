@@ -4,12 +4,13 @@ body {
     padding: 0;
     box-sizing: border-box;
     line-height: 1.6;
-    background-color: #f0f4f8;
+    background-color: #F0F4F8;
+    color: #000000;
 }
 
 header {
-    background: #000;
-    color: #fff;
+    background: #000000;
+    color: #E9AE3F;
     padding: 1rem 0;
 }
 
@@ -35,7 +36,7 @@ nav {
 
 .site-title {
     font-size: 1.5rem;
-    color: #ff6347;
+    color: #E9AE3F;
 }
 
 .nav-links {
@@ -48,13 +49,13 @@ nav {
 }
 
 .nav-links a {
-    color: #fff;
+    color: #E9AE3F;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: #ff6347;
+    color: #BD2949;
 }
 
 .hero {
@@ -64,7 +65,7 @@ nav {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: #E9AE3F;
     text-align: center;
 }
 
@@ -79,7 +80,7 @@ nav {
 }
 
 .btn {
-    background: #ff6347;
+    background: #BD2949;
     color: #fff;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -89,7 +90,7 @@ nav {
 }
 
 .btn:hover {
-    background: #e5533d;
+    background: #A5233D;
 }
 
 section {
@@ -101,7 +102,7 @@ section {
 section h2 {
     text-align: center;
     margin-bottom: 2rem;
-    color: #b22222;
+    color: #BD2949;
 }
 
 .projects-container, .skills-container {
@@ -117,7 +118,7 @@ section h2 {
     background: #ecf0f1;
     border-radius: 8px;
     text-align: center;
-    border: 1px solid #b22222;
+    border: 1px solid #BD2949;
 }
 
 form {
@@ -138,20 +139,20 @@ form input, form textarea {
 
 form button {
     padding: 0.75rem;
-    background: #000;
-    color: #fff;
+    background: #000000;
+    color: #E9AE3F;
     border: none;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 form button:hover {
-    background: #444;
+    background: #444444;
 }
 
 footer {
-    background: #000;
-    color: #fff;
+    background: #000000;
+    color: #E9AE3F;
     text-align: center;
     padding: 1rem 0;
 }
