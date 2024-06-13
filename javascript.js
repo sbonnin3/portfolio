@@ -1,17 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('login-form');
+    const navLinks = document.querySelector('.nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
 
-    loginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
 
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    const links = document.querySelectorAll('.nav-links a');
+    links.forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            const targetId = event.target.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
 
-        // Remplacez 'admin' et 'password' par les identifiants réels que vous souhaitez utiliser
-        if (username === 'admin' && password === 'password') {
-            window.location.href = 'portfolio.html';
-        } else {
-            alert('Identifiant ou mot de passe incorrect');
-        }
+            window.scrollTo({
+                top: targetSection.offsetTop,
+                behavior: 'smooth'
+            });
+
+            if (window.innerWidth <= 768) {
+                navLinks.classList.remove('active');
+            }
+        });
     });
 });
