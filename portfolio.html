@@ -2,12 +2,18 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; script-src 'self' https://cdnjs.cloudflare.com;">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Stage LISI Aerospace</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('loggedIn') !== 'true') {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -25,21 +31,22 @@
                 <li><a href="#projects">Projets</a></li>
                 <li><a href="#skills">Compétences</a></li>
                 <li><a href="#contact">Contact</a></li>
-            </ul>
+                <li><a href="#" id="logout">Déconnexion</a></li>
+            </ul>            
         </nav>
     </header>
     
     <section id="home">
         <div class="hero" data-aos="fade-up">
-            <h1>Stage chez LISI Aerospace</h1>
-            <p>Exploration et apprentissage dans l'industrie aérospatiale</p>
+            <h1>LISI AEROSPACE PARTHENAY</h1>
+            <p>Stage de 2ème année de BUT Informatique à l'IUT Nord Franche-Comté</p>
             <a href="#projects" class="btn" data-aos="fade-up" data-aos-delay="100">Voir mes projets</a>
         </div>
     </section>
     
     <section id="about">
         <div class="content" data-aos="fade-up">
-            <h2>À propos de moi</h2>
+            <h2>À propos</h2>
             <p>Passionné par l'aéronautique, j'ai eu l'opportunité de faire un stage enrichissant chez LISI Aerospace où j'ai développé de nombreuses compétences techniques et professionnelles.</p>
         </div>
     </section>
@@ -85,13 +92,13 @@
             <h2>Contactez-moi</h2>
             <form>
                 <label for="name">Nom:</label>
-                <input type="text" id="name" name="name" required pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,}">
+                <input type="text" id="name" name="name">
                 
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email">
                 
                 <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
+                <textarea id="message" name="message"></textarea>
                 
                 <button type="submit">Envoyer</button>
             </form>
