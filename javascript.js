@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const images = ['./images/Image1.jpg', './images/Image2.jpg', './images/Image3.jpg']; // Liste des images
+    const images = ['./images/Image1.jpg', './images/Image2.jpg', './images/Image3.jpg', './images/Image4.jpg']; // Liste des images
     const carouselInner = document.querySelector('.carousel-inner');
 
     // Effacer le contenu initial
