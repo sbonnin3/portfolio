@@ -28,9 +28,14 @@ nav {
 }
 
 .logo {
-    width: 50px;
+    width: 80px;
     height: auto;
     margin-right: 1rem;
+}
+
+.site-title {
+    font-size: 1.5rem;
+    color: #ff6347;
 }
 
 .nav-links {
