@@ -8,7 +8,7 @@ body {
 }
 
 header {
-    background: #2c3e50;
+    background: #000;
     color: #fff;
     padding: 1rem 0;
 }
@@ -20,6 +20,17 @@ nav {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+    margin-right: 1rem;
 }
 
 .nav-links {
@@ -34,6 +45,11 @@ nav {
 .nav-links a {
     color: #fff;
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ff6347;
 }
 
 .hero {
@@ -58,7 +74,7 @@ nav {
 }
 
 .btn {
-    background: #3498db;
+    background: #ff6347;
     color: #fff;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -68,7 +84,7 @@ nav {
 }
 
 .btn:hover {
-    background: #2980b9;
+    background: #e5533d;
 }
 
 section {
@@ -80,6 +96,7 @@ section {
 section h2 {
     text-align: center;
     margin-bottom: 2rem;
+    color: #b22222;
 }
 
 .projects-container, .skills-container {
@@ -95,6 +112,7 @@ section h2 {
     background: #ecf0f1;
     border-radius: 8px;
     text-align: center;
+    border: 1px solid #b22222;
 }
 
 form {
@@ -115,7 +133,7 @@ form input, form textarea {
 
 form button {
     padding: 0.75rem;
-    background: #2c3e50;
+    background: #000;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -123,11 +141,11 @@ form button {
 }
 
 form button:hover {
-    background: #34495e;
+    background: #444;
 }
 
 footer {
-    background: #2c3e50;
+    background: #000;
     color: #fff;
     text-align: center;
     padding: 1rem 0;
