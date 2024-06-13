@@ -59,7 +59,163 @@ body {
     background: #A5233D;
 }
 
-/* Ajoutez ici les styles existants pour le reste du site */
+/* Styles pour le portfolio */
+header {
+    background: #000000;
+    color: #E9AE3F;
+    padding: 1rem 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 80px;
+    height: auto;
+    margin-right: 1rem;
+}
+
+.site-title {
+    font-size: 1.5rem;
+    color: #E9AE3F;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    transition: all 0.3s ease;
+}
+
+.nav-links li {
+    margin-left: 1rem;
+}
+
+.nav-links a {
+    color: #E9AE3F;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #BD2949;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.hero {
+    background: url('hero-image.jpg') no-repeat center center/cover;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #E9AE3F;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    background: #BD2949;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #A5233D;
+}
+
+section {
+    padding: 4rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #BD2949;
+}
+
+.projects-container, .skills-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.project, .skill {
+    flex: 1;
+    margin: 1rem;
+    padding: 1rem;
+    background: #ecf0f1;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #BD2949;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 0.5rem;
+}
+
+form input, form textarea {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    padding: 0.75rem;
+    background: #000000;
+    color: #E9AE3F;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+form button:hover {
+    background: #444444;
+}
+
+footer {
+    background: #000000;
+    color: #E9AE3F;
+    text-align: center;
+    padding: 1rem 0;
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {
