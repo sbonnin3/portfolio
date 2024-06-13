@@ -3,76 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Mon Site Esthétique</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <div class="logo">
-            <a href="#">AP</a>
-        </div>
         <nav>
-            <ul>
-                <li><a href="#about">about</a></li>
-                <li><a href="#book">book</a></li>
-                <li><a href="#portfolio">portfolio</a></li>
-                <li><a href="#blog">blog</a></li>
-                <li><a href="#contact">contact</a></li>
+            <div class="logo">Logo</div>
+            <ul class="nav-links">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
-        <div class="social-media">
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-            <a href="#"><i class="fa fa-facebook"></i></a>
-        </div>
     </header>
-
+    
     <section id="home">
         <div class="hero">
-            <div class="designer">
-                <h1>designer</h1>
-                <p>Product designer specializing in UI design and design systems</p>
-            </div>
-            <div class="coder">
-                <h1>&lt;coder&gt;</h1>
-                <p>Front end developer who writes clean, elegant and efficient code</p>
+            <h1>Bienvenue sur notre site</h1>
+            <p>Nous créons des expériences numériques étonnantes</p>
+            <a href="#services" class="btn">Découvrir</a>
+        </div>
+    </section>
+    
+    <section id="about">
+        <div class="content">
+            <h2>À propos de nous</h2>
+            <p>Nous sommes une équipe de passionnés du numérique, dédiés à la création de sites web et d'applications élégants et fonctionnels.</p>
+        </div>
+    </section>
+    
+    <section id="services">
+        <div class="content">
+            <h2>Nos Services</h2>
+            <div class="services-container">
+                <div class="service">
+                    <h3>Design Web</h3>
+                    <p>Création de sites web modernes et réactifs.</p>
+                </div>
+                <div class="service">
+                    <h3>Développement</h3>
+                    <p>Développement d'applications web performantes.</p>
+                </div>
+                <div class="service">
+                    <h3>SEO</h3>
+                    <p>Optimisation pour les moteurs de recherche.</p>
+                </div>
             </div>
         </div>
     </section>
-
-    <section id="portfolio">
-        <h2>Some of my latest work</h2>
-        <div class="projects">
-            <div class="project">
-                <img src="project1.jpg" alt="Project 1">
-                <p>Creating a lean design system</p>
-            </div>
-            <div class="project">
-                <img src="project2.jpg" alt="Project 2">
-                <p>Interior design news feed</p>
-            </div>
-            <div class="project">
-                <img src="project3.jpg" alt="Project 3">
-                <p>Qantas map search</p>
-            </div>
+    
+    <section id="contact">
+        <div class="content">
+            <h2>Contactez-nous</h2>
+            <form>
+                <label for="name">Nom:</label>
+                <input type="text" id="name" name="name">
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message"></textarea>
+                
+                <button type="submit">Envoyer</button>
+            </form>
         </div>
     </section>
-
+    
     <footer>
-        <p>&copy; 2024 Mon Portfolio</p>
-        <nav>
-            <ul>
-                <li><a href="#about">about</a></li>
-                <li><a href="#book">book</a></li>
-                <li><a href="#featured">featured</a></li>
-                <li><a href="#portfolio">portfolio</a></li>
-                <li><a href="#blog">blog</a></li>
-                <li><a href="#contact">contact</a></li>
-            </ul>
-        </nav>
+        <p>&copy; 2024 Mon Site Esthétique. Tous droits réservés.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="javascript.js"></script>
 </body>
 </html>
