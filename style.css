@@ -124,13 +124,14 @@ nav {
 
 .hero {
     background: url('hero-image.jpg') no-repeat center center/cover;
-    height: 60vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #E9AE3F;
     text-align: center;
+    margin-top: 60px;
 }
 
 .hero h1 {
@@ -221,6 +222,32 @@ footer {
     padding: 1rem 0;
 }
 
+/* Styles pour le carrousel */
+.carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px; /* Ajouter un petit espace entre le texte et le carrousel */
+}
+
+.carousel-inner {
+    display: flex;
+    width: 300%; /* 100% * nombre d'images */
+    animation: slide 15s infinite;
+}
+
+.carousel-inner img {
+    width: 100%; /* Assurez-vous que toutes les images ont la même largeur */
+    flex: 1 0 auto;
+}
+
+@keyframes slide {
+    0%, 20%, 100% { transform: translateX(0); }
+    25%, 45% { transform: translateX(-100%); }
+    50%, 70% { transform: translateX(-200%); }
+    75%, 95% { transform: translateX(-300%); }
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .nav-links {
@@ -244,5 +271,9 @@ footer {
 
     .menu-toggle {
         display: block;
+    }
+
+    .hero {
+        height: 40vh;
     }
 }

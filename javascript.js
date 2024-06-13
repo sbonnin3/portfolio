@@ -1,32 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelector('.nav-links');
-    const menuToggle = document.querySelector('.menu-toggle');
+    const images = ['image1.png', 'image2.png', 'image3.png']; // Liste des images
+    const carouselInner = document.querySelector('.carousel-inner');
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
+    // Effacer le contenu initial
+    carouselInner.innerHTML = '';
+
+    // Ajouter les images dynamiquement
+    images.forEach((image, index) => {
+        const imgElement = document.createElement('img');
+        imgElement.src = image;
+        imgElement.alt = `Image ${index + 1}`;
+        carouselInner.appendChild(imgElement);
     });
 
-    const links = document.querySelectorAll('.nav-links a');
-    links.forEach(link => {
-        link.addEventListener('click', event => {
-            event.preventDefault();
-            const targetId = event.target.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-
-            window.scrollTo({
-                top: targetSection.offsetTop,
-                behavior: 'smooth'
-            });
-
-            if (window.innerWidth <= 768) {
-                navLinks.classList.remove('active');
-            }
-        });
-    });
-
-    const logoutButton = document.getElementById('logout');
-    logoutButton.addEventListener('click', () => {
-        localStorage.removeItem('loggedIn');
-        window.location.href = 'index.html';
+    // Ajouter des clones des images pour une transition infinie
+    images.forEach((image, index) => {
+        const imgElement = document.createElement('img');
+        imgElement.src = image;
+        imgElement.alt = `Image ${index + 1}`;
+        carouselInner.appendChild(imgElement);
     });
 });
