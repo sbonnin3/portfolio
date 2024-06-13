@@ -6,6 +6,7 @@ body {
     line-height: 1.6;
     background-color: #F0F4F8;
     color: #000000;
+    padding-top: 80px;
 }
 
 .login-container {
@@ -63,6 +64,10 @@ header {
     background: #000000;
     color: #E9AE3F;
     padding: 1rem 0;
+    position: fixed; /* Fixe la navbar en haut */
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Assure que la navbar reste au-dessus des autres éléments */
 }
 
 nav {
@@ -222,7 +227,7 @@ footer {
         display: none;
         flex-direction: column;
         background-color: #000;
-        position: absolute;
+        position: fixed;
         top: 60px;
         right: 0;
         width: 100%;
