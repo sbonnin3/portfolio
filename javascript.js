@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('.nav-links a');
+    const navLinks = document.querySelector('.nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
 
-    navLinks.forEach(link => {
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    const links = document.querySelectorAll('.nav-links a');
+    links.forEach(link => {
         link.addEventListener('click', event => {
             event.preventDefault();
             const targetId = event.target.getAttribute('href').substring(1);
@@ -11,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 top: targetSection.offsetTop,
                 behavior: 'smooth'
             });
+
+            if (window.innerWidth <= 768) {
+                navLinks.classList.remove('active');
+            }
         });
     });
 });

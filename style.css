@@ -29,7 +29,7 @@ nav {
 }
 
 .logo {
-    width: 60px;
+    width: 80px;
     height: auto;
     margin-right: 1rem;
 }
@@ -56,6 +56,12 @@ nav {
 
 .nav-links a:hover {
     color: #BD2949;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 .hero {
@@ -155,4 +161,30 @@ footer {
     color: #E9AE3F;
     text-align: center;
     padding: 1rem 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #000;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 1rem 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
 }
