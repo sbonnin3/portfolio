@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; script-src 'self' https://cdnjs.cloudflare.com;">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Stage LISI Aerospace</title>
     <link rel="stylesheet" href="style.css">
@@ -84,13 +85,13 @@
             <h2>Contactez-moi</h2>
             <form>
                 <label for="name">Nom:</label>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name" name="name" required pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,}">
                 
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" required>
                 
                 <label for="message">Message:</label>
-                <textarea id="message" name="message"></textarea>
+                <textarea id="message" name="message" required></textarea>
                 
                 <button type="submit">Envoyer</button>
             </form>
