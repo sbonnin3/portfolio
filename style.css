@@ -4,10 +4,11 @@ body {
     padding: 0;
     box-sizing: border-box;
     line-height: 1.6;
+    background-color: #f0f4f8;
 }
 
 header {
-    background: #333;
+    background: #2c3e50;
     color: #fff;
     padding: 1rem 0;
 }
@@ -57,7 +58,7 @@ nav {
 }
 
 .btn {
-    background: #ff6347;
+    background: #3498db;
     color: #fff;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -67,7 +68,7 @@ nav {
 }
 
 .btn:hover {
-    background: #e5533d;
+    background: #2980b9;
 }
 
 section {
@@ -81,17 +82,17 @@ section h2 {
     margin-bottom: 2rem;
 }
 
-.services-container {
+.projects-container, .skills-container {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.service {
+.project, .skill {
     flex: 1;
     margin: 1rem;
     padding: 1rem;
-    background: #f4f4f4;
+    background: #ecf0f1;
     border-radius: 8px;
     text-align: center;
 }
@@ -114,7 +115,7 @@ form input, form textarea {
 
 form button {
     padding: 0.75rem;
-    background: #333;
+    background: #2c3e50;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -122,11 +123,11 @@ form button {
 }
 
 form button:hover {
-    background: #555;
+    background: #34495e;
 }
 
 footer {
-    background: #333;
+    background: #2c3e50;
     color: #fff;
     text-align: center;
     padding: 1rem 0;
