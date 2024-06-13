@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        // Remplacez 'admin' et 'password' par les identifiants réels que vous souhaitez utiliser
-        if (username === 'admin' && password === 'password') {
+        if (username === 'SimonBONNIN' && password === 'Simon002') {
             localStorage.setItem('loggedIn', 'true');
             window.location.href = 'portfolio.html';
         } else {
