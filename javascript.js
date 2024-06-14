@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const images = ['./images/Image1.jpg', './images/Image2.jpg', './images/Image3.jpg', './images/Image4.jpg', './images/Image1.jpg']; // Liste des images
+    const images = ['./images/Image1.jpg', './images/Image2.jpg', './images/Image3.jpg', './images/Image4.jpg']; // Liste des images
     const carouselInner = document.querySelector('.carousel-inner');
 
     // Effacer le contenu initial
@@ -54,9 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(() => {
         index++;
-        carouselInner.style.transition = 'transform 1s ease';
-        carouselInner.style.transform = `translateX(-${index * 100}%)`;
-
         if (index === totalImages) {
             setTimeout(() => {
                 carouselInner.style.transition = 'none';
@@ -67,5 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 index = 0;
             }, 500); // Temps de transition correspondant à celui défini dans la CSS
         }
+        carouselInner.style.transition = 'transform 1s ease';
+        carouselInner.style.transform = `translateX(-${index * 100}%)`;
     }, 3000);
 });
