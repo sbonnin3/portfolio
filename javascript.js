@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(() => {
         index++;
-        carouselInner.style.transition = 'transform 0.5s ease';
+        carouselInner.style.transition = 'transform 1s ease';
         carouselInner.style.transform = `translateX(-${index * 100}%)`;
 
         if (index === totalImages) {
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 carouselInner.style.transform = 'translateX(0)';
                 // Force reflow to reset the transition
                 carouselInner.offsetHeight;
-                carouselInner.style.transition = 'transform 0.5s ease';
+                carouselInner.style.transition = 'transform 0s ease';
                 index = 0;
             }, 500); // Temps de transition correspondant à celui défini dans la CSS
         }
