@@ -254,57 +254,43 @@ footer {
     position: relative;
     border-bottom-left-radius: 60px;
     border-bottom-right-radius: 60px;
+    z-index: 1;
 }
 
 .carousel-inner {
     display: flex;
-    width: 100%;
-    animation: slide 15s infinite;
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
+    transition: transform 0.5s ease;
 }
 
 .carousel-inner img {
     width: 100%;
-    flex: 1 0 auto;
+    flex: 0 0 100%;
     max-height: 400px;
     border-bottom-left-radius: 60px;
     border-bottom-right-radius: 60px;
 }
 
-@keyframes slide {
-    0%, 20%, 100% { transform: translateX(0); }
-    25%, 45% { transform: translateX(-100%); }
-    50%, 70% { transform: translateX(-200%); }
-    75%, 95% { transform: translateX(-300%); }
+/* Assurez-vous que les images sont positionnées correctement */
+.carousel-inner img {
+    display: block;
 }
 
-/* Responsive Styles */
+/* Styles Responsives */
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        background-color: #000;
-        position: fixed;
-        top: 60px;
-        right: 0;
-        width: 100%;
-        text-align: center;
+    .hero h1 {
+        font-size: 2rem;
     }
 
-    .nav-links.active {
-        display: flex;
+    .hero p {
+        font-size: 1rem;
     }
 
-    .nav-links li {
-        margin: 1rem 0;
+    .hero .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
     }
 
-    .menu-toggle {
-        display: block;
-    }
-
-    .hero {
-        height: 40vh;
+    .carousel-inner img {
+        max-height: 300px;
     }
 }
