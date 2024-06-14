@@ -38,15 +38,21 @@
 
     <section id="home">
         <div class="hero" data-aos="fade-up">
-            <h1>LISI AEROSPACE PARTHENAY</h1>
-            <p>Stage de 2ème année de BUT Informatique à l'IUT Nord Franche-Comté</p>
-            <a href="#projects" class="btn" data-aos="fade-up" data-aos-delay="100">Voir mes projets</a>
+            <div class="hero-content">
+                <h1>LISI AEROSPACE PARTHENAY</h1>
+                <p>Stage de 2ème année de BUT Informatique à l'IUT Nord Franche-Comté</p>
+                <a href="#projects" class="btn" data-aos="fade-up" data-aos-delay="100">Voir mes projets</a>
+            </div>
         </div>
         <div class="carousel">
             <div class="carousel-inner">
-            </div>
+                <img src="images/Image1.jpg" alt="Image 1">
+                <img src="images/Image2.jpg" alt="Image 2">
+                <img src="images/Image3.jpg" alt="Image 3">
+                <img src="images/Image4.jpg" alt="Image 4">
+            </div>            
         </div>
-    </section>
+    </section>    
     
     <section id="about">
         <div class="content" data-aos="fade-up">
@@ -80,12 +86,12 @@
             <h2 data-aos="fade-up">Compétences</h2>
             <div class="skills-container">
                 <div class="skill" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Gestion de projet</h3>
-                    <p>Capacité à gérer et coordonner des projets complexes.</p>
+                    <h3>Compétence 1 : Réaliser un développement d’application</h3>
+                    <p>Capacité à gérer et coordonner des projets complexes</p>
                 </div>
                 <div class="skill" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Analyse de données</h3>
-                    <p>Compétences en analyse de données et statistiques.</p>
+                    <h3>Compétence 2 : Optimiser des applications</h3>
+                    <p>Compétences en analyse de données et statistiques</p>
                 </div>
             </div>
         </div>
@@ -118,5 +124,12 @@
     <script>
         AOS.init();
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('loggedIn') !== 'true') {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>    
 </body>
 </html>

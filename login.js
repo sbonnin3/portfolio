@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        if (username === 'SimonBONNIN' && password === 'Simon002') {
+        // Simuler une vérification côté serveur (à remplacer par une véritable vérification)
+        if (username === '123456789' && password === '987654321') {
             localStorage.setItem('loggedIn', 'true');
             window.location.href = 'portfolio.html';
         } else {
