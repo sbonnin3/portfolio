@@ -125,7 +125,7 @@
                             </div>
                         </li>
                         <br>
-                        <li><strong>Traitement de données CSV en sortie du boîtier METRO</strong> : Optimisation du traitement des données pour créer un fichier CSV plus complet et accessible, améliorant ainsi la performance du système.
+                        <li><strong>Traitement de données CSV en sortie du boîtier METRO</strong> : Création d'un fichier exécutable pour gérer et unifier les données des mesures en un seul fichier CSV complet.
                             <div class="project-details">
                                 <h5>Description :</h5>
                                 <p>J'ai développé un exécutable qui unifie les données de plusieurs fichiers en un fichier CSV complet et accessible, améliorant ainsi le traitement des données et leur utilisation.</p>
@@ -137,10 +137,42 @@
                                 <img src="./images/active_part.PNG" alt="active_part">
                                 <p>Données modifiées</p>
                                 <img src="./images/CSVModifie.PNG" alt="CSVModifie">
+                                <h5>Extrait de code :</h5>
+                                <pre>
+                        def extract_values(data, nbCotes):
+                            results = {}
+                        
+                            for i in range(1, nbCotes + 1):
+                                key = f'K2002/{i}'
+                                match = re.search(r'\((.*?)\)', data.get(key, ''))
+                                if match:
+                                    results[key] = match.group(1)
+                                else:
+                                    results[key] = 'Non trouvé'
+                        
+                            keys_to_extract = ['K2101', 'K2110', 'K2111', 'K2213', 'K2006']
+                            for key_base in keys_to_extract:
+                                for i in range(1, nbCotes + 1):
+                                    key = f'{key_base}/{i}'
+                                    if key in data:
+                                        results[key] = data[key]
+                                    else:
+                                        results[key] = 'Non trouvé'
+                            return results
+                        
+                        def main():
+                            data = read_dfd_file(chemin_active_part)
+                            extracted_values = extract_values(data, nbCotes)
+                            donnees = []
+                            for key, value in extracted_values.items():
+                                donnees.append(value)
+                        
+                            # Further processing...
+                                </pre>
                                 <h5>Analyse :</h5>
-                                <p>Le projet visait à améliorer la gestion des données de mesure en les consolidant en un seul fichier CSV. Cela a impliqué la conception et le développement d'un programme optimisé en Python. La validation et les tests ont montré que le programme traitait les données rapidement et efficacement, améliorant ainsi l'accessibilité et l'utilisation des données. Le nouveau fichier CSV est plus structuré et permet une meilleure analyse des données, ce qui répond aux attentes de la compétence en termes de développement et d'optimisation des applications.</p>
+                                <p>Pour développer ce programme, j'ai utilisé Python pour lire et extraire des données pertinentes à partir de fichiers CSV et DFD. L'extrait de code montre comment les valeurs sont extraites et nettoyées pour une analyse plus approfondie. Ce projet démontre ma compétence en traitement de données, en automatisant l'extraction et la consolidation de données complexes en un format CSV plus accessible. Cette approche améliore considérablement l'efficacité du traitement des données et leur utilisation ultérieure.</p>
                             </div>
-                        </li>
+                        </li>                        
                         <br>
                         <li><strong>Rappel de qualification de machine par fond d'écran</strong> : Développement d'un programme qui anime un fond d'écran pour mettre à jour les données, pour rappeler les délais avant la prochaine qualifications de machine à effectuer.
                             <div class="project-details">
@@ -150,24 +182,60 @@
                                 <p>Fonds d'écran</p>
                                 <img src="./images/FondCONFORME.png" alt="FondCONFORME">
                                 <img src="./images/FondNONCONFORME.png" alt="FondNONCONFORME">
+                                <h5>Extrait de code :</h5>
+                                <pre>
+                        def read_start_date_from_config():
+                            config = ConfigObj(cheminDonnees + 'DATECALIB.str')
+                            date_str = config['DATECALIB']
+                            return datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+                        
+                        def read_conformite_from_config():
+                            config = ConfigObj(cheminDonnees + 'STATECALIB.str')
+                            conformite = config['STATECALIB']
+                            return conformite
+                        
+                        def add_text_to_image(image_path, text, save_path, jours, heures, minutes):
+                            try:
+                                img = Image.open(image_path)
+                                draw = ImageDraw.Draw(img)
+                                font = ImageFont.truetype("arial.ttf", 20)
+                                width, height = img.size
+                                y_offset = height / 2.05
+                                lines = text.split('\n')
+                                for line in lines:
+                                    fill_color = (255, 255, 255)
+                                    textwidth, textheight = draw.textbbox((0, 0), line, font=font)[2:]
+                                    x = (width - textwidth) / 2
+                                    if line.startswith("QUALIFICATION PALPEUR CONFORME"):
+                                        fill_color = (0, 150, 0)
+                                    elif "A réaliser avant" in line:
+                                        fill_color = (255, 0, 0)
+                                    elif "QUALIFICATION PALPEUR NON CONFORME" in line:
+                                        fill_color = (255, 0, 0)
+                                    if jours in line and heures in line and minutes in line:
+                                        font_jours = ImageFont.truetype("arial.ttf", 50)
+                                        font_heures = ImageFont.truetype("arial.ttf", 40)
+                                        font_minutes = ImageFont.truetype("arial.ttf", 30)
+                                        x2 = x
+                                        y2 = y_offset
+                                        bbox = draw.textbbox((x2, y2), jours, font=font_jours)
+                                        draw.text((x2, y2), jours, font=font_jours, fill=fill_color)
+                                        x2 += bbox[2] - bbox[0] + 10
+                                        bbox = draw.textbbox((x2, y2), heures, font=font_heures)
+                                        draw.text((x2, y2+5), heures, font=font_heures, fill=fill_color)
+                                        x2 += bbox[2] - bbox[0] + 10
+                                        bbox = draw.textbbox((x2, y2), minutes, font=font_minutes)
+                                        draw.text((x2, y2+10), minutes, font=font_minutes, fill=fill_color)
+                                        y_offset += textheight + 1
+                                    else:
+                                        draw.text((x, y_offset), line, font=font, fill=fill_color)
+                                    y_offset += textheight + 10
+                                img.save(save_path)
+                            except Exception as e:
+                                print(f"Failed to update wallpaper: {e}")
+                                </pre>
                                 <h5>Analyse :</h5>
-                                <p>
-                                    <strong>Objectifs et Contexte :</strong><br>
-                                    Les utilisateurs des machines de mesure dans l'atelier lançaient souvent des mesures sans savoir si la machine était qualifiée ou non, entraînant des risques de non-conformité et des arrêts de production imprévus. Pour résoudre ce problème, j'ai développé un programme qui anime un fond d'écran afin d'informer les utilisateurs du temps restant avant la prochaine qualification de la machine, ou si la qualification est non conforme, afin qu'ils puissent réaliser la qualification avant de lancer une nouvelle mesure.<br><br>
-                                    <strong>Méthodologie et Outils Utilisés :</strong><br>
-                                    <ul>
-                                        <li>Technologies utilisées : Python pour le développement du script, transformation du script en fichier exécutable (.exe) pour une utilisation facile sur les machines de l'atelier, et SQLite pour stocker et gérer les données de qualification des machines.</li>
-                                        <li>Fonctionnement : L'exécutable recherche des fichiers locaux sur le PC pour récupérer la date et l'état de la dernière qualification. Si la machine est qualifiée, le fond d'écran affiche le temps restant avant la prochaine qualification. Si la machine n'est pas qualifiée, il indique à l'utilisateur de réaliser la qualification avant de lancer une nouvelle mesure.</li>
-                                        <li>Défis techniques : Assurer la mise à jour dynamique du fond d'écran en fonction des données de qualification et garantir que l'exécutable fonctionne de manière fiable sur différents PC de l'atelier.</li>
-                                    </ul><br>
-                                    <strong>Résultats et Impact :</strong><br>
-                                    <ul>
-                                        <li>Améliorations apportées : Réduction significative des risques de non-conformité en informant les utilisateurs du statut de qualification des machines avant de lancer des mesures. Amélioration de l'efficacité opérationnelle en minimisant les arrêts de production dus à des qualifications non réalisées.</li>
-                                        <li>Impact sur les utilisateurs : Les utilisateurs sont désormais informés en temps réel de l'état de qualification de leur machine, ce qui les aide à planifier et à réaliser les qualifications en temps voulu, renforçant la discipline de conformité et contribuant à une meilleure gestion des équipements de mesure.</li>
-                                    </ul><br>
-                                    <strong>Leçons Apprises :</strong><br>
-                                    Ce projet a mis en évidence l'importance d'une communication claire et visuelle dans un environnement de production pour améliorer la conformité et l'efficacité. À l'avenir, il serait intéressant d'intégrer des notifications supplémentaires, telles que des alertes par email ou SMS, pour renforcer encore plus le rappel des qualifications et s'assurer que les utilisateurs sont toujours informés de l'état de leurs machines.
-                                </p>
+                                <p>Pour développer ce programme, j'ai utilisé Python pour lire les dates de qualification et les états de conformité des machines depuis des fichiers de configuration locaux. Le code extrait montre comment ces informations sont récupérées et utilisées pour créer une image de fond d'écran dynamique. Ce projet démontre ma compétence à utiliser Python pour automatiser des tâches complexes et améliorer la conformité des processus en fournissant des informations en temps réel aux utilisateurs.</p>
                             </div>
                         </li>
                     </ul>
