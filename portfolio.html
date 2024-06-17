@@ -99,9 +99,52 @@
                     </ul>
                     <h4>Projets liés :</h4>
                     <ul>
-                        <li><strong>Système de synchronisation entre les mesures et les calculs des pièces</strong> : Développement d'un programme Python optimisé pour garantir le calcul des pièces mesurées en utilisant une base de données pour la synchronisation.</li>
-                        <li><strong>Traitement de données CSV en sortie du boîtier METRO</strong> : Création d'un fichier exécutable pour gérer et unifier les données des mesures en un seul fichier CSV complet.</li>
-                        <li><strong>Rappel de qualification de machine par fond d'écran</strong> : Développement d'un fond d'écran animé pour rappeler les qualifications de machine à effectuer.</li>
+                        <li><strong>Système de synchronisation entre les mesures et les calculs des pièces</strong> : Développement d'un programme Python optimisé pour garantir le calcul des pièces mesurées en utilisant une base de données pour la synchronisation.
+                            <div class="project-details">
+                                <h5>Description :</h5>
+                                <p>J'ai développé une application en Python permettant de synchroniser les données des mesures avec les PC de calculs en utilisant une base de données pour la gestion des tâches.</p>
+                                <h5>Extrait de code :</h5>
+                                <pre>
+    def synchronize_measurements_to_calculations(measurements):
+        # Connexion à la base de données
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        
+        for measurement in measurements:
+            # Sélectionner le premier PC de calcul disponible
+            cursor.execute("SELECT id FROM calculations WHERE status='available' LIMIT 1")
+            calc_pc_id = cursor.fetchone()[0]
+            
+            # Mettre à jour le statut du PC de calcul
+            cursor.execute("UPDATE calculations SET status='busy' WHERE id=?", (calc_pc_id,))
+            
+            # Enregistrer la mesure dans la base de données
+            cursor.execute("INSERT INTO measurements (data, calc_pc_id) VALUES (?, ?)", (measurement, calc_pc_id))
+        
+        conn.commit()
+        conn.close()
+                                </pre>
+                                <h5>Analyse :</h5>
+                                <p>Le code ci-dessus montre comment chaque mesure est associée au premier PC de calcul disponible, puis enregistrée dans la base de données. Cette approche optimise l'utilisation des ressources disponibles et garantit un traitement rapide et efficace des mesures.</p>
+                            </div>
+                        </li>
+                        <li><strong>Traitement de données CSV en sortie du boîtier METRO</strong> : Création d'un fichier exécutable pour gérer et unifier les données des mesures en un seul fichier CSV complet.
+                            <div class="project-details">
+                                <h5>Description :</h5>
+                                <p>J'ai développé un exécutable qui unifie les données de plusieurs fichiers en un fichier CSV complet et accessible, améliorant ainsi le traitement des données et leur utilisation.</p>
+                                <h5>Preuves :</h5>
+                                <img src="./images/DiagrammeProjet2.png" alt="DiagrammeProjet2">
+                                <p>Diagrammes UML, captures d'écran du fichier CSV généré et documentation de l'exécutable créé.</p>
+                            </div>
+                        </li>
+                        <li><strong>Rappel de qualification de machine par fond d'écran</strong> : Développement d'un fond d'écran animé pour rappeler les qualifications de machine à effectuer.
+                            <div class="project-details">
+                                <h5>Description :</h5>
+                                <p>J'ai créé un fond d'écran animé pour afficher des rappels de qualifications de machine. Ce projet, bien qu'encore en cours de déploiement, est conçu pour inciter le personnel à réaliser les qualifications avant la non-conformité de la machine.</p>
+                                <h5>Preuves :</h5>
+                                <p>Captures d'écran de l'interface utilisateur et explication de l'implémentation technique.</p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div class="skill" data-aos="fade-up" data-aos-delay="200">
@@ -115,13 +158,27 @@
                     </ul>
                     <h4>Projets liés :</h4>
                     <ul>
-                        <li><strong>Système de synchronisation entre les mesures et les calculs des pièces</strong> : Optimisation du processus d'envoi des pièces mesurées en réduisant les temps d'attente et en utilisant efficacement les ressources disponibles.</li>
-                        <li><strong>Traitement de données CSV en sortie du boîtier METRO</strong> : Optimisation du traitement des données pour créer un fichier CSV plus complet et accessible, améliorant ainsi la performance du système.</li>
+                        <li><strong>Système de synchronisation entre les mesures et les calculs des pièces</strong> : Optimisation du processus d'envoi des pièces mesurées en réduisant les temps d'attente et en utilisant efficacement les ressources disponibles.
+                            <div class="project-details">
+                                <h5>Description :</h5>
+                                <p>J'ai optimisé le processus d'envoi des pièces mesurées en réduisant les temps d'attente grâce à une gestion efficace des ressources et à l'utilisation d'une base de données pour la synchronisation.</p>
+                                <h5>Analyse :</h5>
+                                <p>Le code et les analyses montrent une réduction significative des temps d'exécution et une meilleure utilisation des ressources disponibles.</p>
+                            </div>
+                        </li>
+                        <li><strong>Traitement de données CSV en sortie du boîtier METRO</strong> : Optimisation du traitement des données pour créer un fichier CSV plus complet et accessible, améliorant ainsi la performance du système.
+                            <div class="project-details">
+                                <h5>Description :</h5>
+                                <p>J'ai optimisé le traitement des données CSV en consolidant plusieurs fichiers en un seul fichier complet, ce qui a amélioré la performance et l'accessibilité des données.</p>
+                                <h5>Analyse :</h5>
+                                <p>Les comparaisons des performances avant et après optimisation montrent une amélioration notable de la rapidité et de l'efficacité du système.</p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-    </section>    
+    </section>      
     
     <section id="contact">
         <div class="content" data-aos="fade-up">
