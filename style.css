@@ -195,13 +195,13 @@ section h2 {
     color: #BD2949;
 }
 
-.projects-container, .skills-container {
+.projects-container {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.project, .skill {
+.project {
     flex: 1;
     margin: 1rem;
     padding: 1rem;
@@ -209,6 +209,42 @@ section h2 {
     border-radius: 8px;
     text-align: center;
     border: 1px solid #BD2949;
+}
+
+.skills-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.skill {
+    flex: 1;
+    margin: 1rem;
+    padding: 1rem;
+    background: #ecf0f1;
+    border-radius: 8px;
+    text-align: left;
+    border: 1px solid #BD2949;
+    max-width: 45%;
+}
+
+.skill h3 {
+    color: #BD2949;
+    margin-bottom: 1rem;
+}
+
+.skill h4 {
+    margin-top: 1rem;
+    color: #BD2949;
+}
+
+.skill ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.skill ul li {
+    margin-bottom: 0.5rem;
 }
 
 .contact-info {
