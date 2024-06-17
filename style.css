@@ -75,6 +75,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
+    max-height: 60px;
     margin: 0 auto;
     padding: 0 1rem;
     position: relative;
@@ -110,6 +111,12 @@ nav {
     color: #E9AE3F;
     text-decoration: none;
     transition: color 0.3s ease;
+}
+
+.nav-links a.active {
+    color: #BD2949;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .nav-links a:hover {

@@ -67,4 +67,27 @@ document.addEventListener('DOMContentLoaded', () => {
         carouselInner.style.transition = 'transform 1s ease';
         carouselInner.style.transform = `translateX(-${index * 100}%)`;
     }, 3000);
+
+    function onScroll() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        let currentSection = '';
+
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 60) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach((link) => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(currentSection)) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', onScroll);
 });
