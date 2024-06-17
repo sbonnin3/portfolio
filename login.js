@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         // Simuler une vérification côté serveur (à remplacer par une véritable vérification)
-        if (username === 'UtilisateurPortfolio' && password === 'Simon-BONNIN_Portfolio-LISI-NFC_2024#') {
+        if (username === 'UtilisateurPortfolio' && password === 'EhK/mjVXZa"462çjhd(r') {
             localStorage.setItem('loggedIn', 'true');
             window.location.href = 'portfolio.html';
         } else {
