@@ -225,6 +225,7 @@ section h2 {
     border-radius: 8px;
     border: 1px solid #BD2949;
     box-sizing: border-box;
+    width: 30%;
 }
 
 .skill h3 {
