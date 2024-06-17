@@ -139,35 +139,35 @@
                                 <img src="./images/CSVModifie.PNG" alt="CSVModifie">
                                 <h5>Extrait de code :</h5>
                                 <pre>
-                        def extract_values(data, nbCotes):
-                            results = {}
-                        
+                    def extract_values(data, nbCotes):
+                        results = {}
+                    
+                        for i in range(1, nbCotes + 1):
+                            key = f'K2002/{i}'
+                            match = re.search(r'\((.*?)\)', data.get(key, ''))
+                            if match:
+                                results[key] = match.group(1)
+                            else:
+                                results[key] = 'Non trouvé'
+                    
+                        keys_to_extract = ['K2101', 'K2110', 'K2111', 'K2213', 'K2006']
+                        for key_base in keys_to_extract:
                             for i in range(1, nbCotes + 1):
-                                key = f'K2002/{i}'
-                                match = re.search(r'\((.*?)\)', data.get(key, ''))
-                                if match:
-                                    results[key] = match.group(1)
+                                key = f'{key_base}/{i}'
+                                if key in data:
+                                    results[key] = data[key]
                                 else:
                                     results[key] = 'Non trouvé'
-                        
-                            keys_to_extract = ['K2101', 'K2110', 'K2111', 'K2213', 'K2006']
-                            for key_base in keys_to_extract:
-                                for i in range(1, nbCotes + 1):
-                                    key = f'{key_base}/{i}'
-                                    if key in data:
-                                        results[key] = data[key]
-                                    else:
-                                        results[key] = 'Non trouvé'
-                            return results
-                        
-                        def main():
-                            data = read_dfd_file(chemin_active_part)
-                            extracted_values = extract_values(data, nbCotes)
-                            donnees = []
-                            for key, value in extracted_values.items():
-                                donnees.append(value)
-                        
-                            # Further processing...
+                        return results
+                    
+                    def main():
+                        data = read_dfd_file(chemin_active_part)
+                        extracted_values = extract_values(data, nbCotes)
+                        donnees = []
+                        for key, value in extracted_values.items():
+                            donnees.append(value)
+                    
+                        # Further processing...
                                 </pre>
                                 <h5>Analyse :</h5>
                                 <p>Pour développer ce programme, j'ai utilisé Python pour lire et extraire des données pertinentes à partir de fichiers CSV et DFD. L'extrait de code montre comment les valeurs sont extraites et nettoyées pour une analyse plus approfondie. Ce projet démontre ma compétence en traitement de données, en automatisant l'extraction et la consolidation de données complexes en un format CSV plus accessible. Cette approche améliore considérablement l'efficacité du traitement des données et leur utilisation ultérieure.</p>
@@ -184,55 +184,55 @@
                                 <img src="./images/FondNONCONFORME.png" alt="FondNONCONFORME">
                                 <h5>Extrait de code :</h5>
                                 <pre>
-                        def read_start_date_from_config():
-                            config = ConfigObj(cheminDonnees + 'DATECALIB.str')
-                            date_str = config['DATECALIB']
-                            return datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-                        
-                        def read_conformite_from_config():
-                            config = ConfigObj(cheminDonnees + 'STATECALIB.str')
-                            conformite = config['STATECALIB']
-                            return conformite
-                        
-                        def add_text_to_image(image_path, text, save_path, jours, heures, minutes):
-                            try:
-                                img = Image.open(image_path)
-                                draw = ImageDraw.Draw(img)
-                                font = ImageFont.truetype("arial.ttf", 20)
-                                width, height = img.size
-                                y_offset = height / 2.05
-                                lines = text.split('\n')
-                                for line in lines:
-                                    fill_color = (255, 255, 255)
-                                    textwidth, textheight = draw.textbbox((0, 0), line, font=font)[2:]
-                                    x = (width - textwidth) / 2
-                                    if line.startswith("QUALIFICATION PALPEUR CONFORME"):
-                                        fill_color = (0, 150, 0)
-                                    elif "A réaliser avant" in line:
-                                        fill_color = (255, 0, 0)
-                                    elif "QUALIFICATION PALPEUR NON CONFORME" in line:
-                                        fill_color = (255, 0, 0)
-                                    if jours in line and heures in line and minutes in line:
-                                        font_jours = ImageFont.truetype("arial.ttf", 50)
-                                        font_heures = ImageFont.truetype("arial.ttf", 40)
-                                        font_minutes = ImageFont.truetype("arial.ttf", 30)
-                                        x2 = x
-                                        y2 = y_offset
-                                        bbox = draw.textbbox((x2, y2), jours, font=font_jours)
-                                        draw.text((x2, y2), jours, font=font_jours, fill=fill_color)
-                                        x2 += bbox[2] - bbox[0] + 10
-                                        bbox = draw.textbbox((x2, y2), heures, font=font_heures)
-                                        draw.text((x2, y2+5), heures, font=font_heures, fill=fill_color)
-                                        x2 += bbox[2] - bbox[0] + 10
-                                        bbox = draw.textbbox((x2, y2), minutes, font=font_minutes)
-                                        draw.text((x2, y2+10), minutes, font=font_minutes, fill=fill_color)
-                                        y_offset += textheight + 1
-                                    else:
-                                        draw.text((x, y_offset), line, font=font, fill=fill_color)
-                                    y_offset += textheight + 10
-                                img.save(save_path)
-                            except Exception as e:
-                                print(f"Failed to update wallpaper: {e}")
+                    def read_start_date_from_config():
+                        config = ConfigObj(cheminDonnees + 'DATECALIB.str')
+                        date_str = config['DATECALIB']
+                        return datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+                    
+                    def read_conformite_from_config():
+                        config = ConfigObj(cheminDonnees + 'STATECALIB.str')
+                        conformite = config['STATECALIB']
+                        return conformite
+                    
+                    def add_text_to_image(image_path, text, save_path, jours, heures, minutes):
+                        try:
+                            img = Image.open(image_path)
+                            draw = ImageDraw.Draw(img)
+                            font = ImageFont.truetype("arial.ttf", 20)
+                            width, height = img.size
+                            y_offset = height / 2.05
+                            lines = text.split('\n')
+                            for line in lines:
+                                fill_color = (255, 255, 255)
+                                textwidth, textheight = draw.textbbox((0, 0), line, font=font)[2:]
+                                x = (width - textwidth) / 2
+                                if line.startswith("QUALIFICATION PALPEUR CONFORME"):
+                                    fill_color = (0, 150, 0)
+                                elif "A réaliser avant" in line:
+                                    fill_color = (255, 0, 0)
+                                elif "QUALIFICATION PALPEUR NON CONFORME" in line:
+                                    fill_color = (255, 0, 0)
+                                if jours in line and heures in line and minutes in line:
+                                    font_jours = ImageFont.truetype("arial.ttf", 50)
+                                    font_heures = ImageFont.truetype("arial.ttf", 40)
+                                    font_minutes = ImageFont.truetype("arial.ttf", 30)
+                                    x2 = x
+                                    y2 = y_offset
+                                    bbox = draw.textbbox((x2, y2), jours, font=font_jours)
+                                    draw.text((x2, y2), jours, font=font_jours, fill=fill_color)
+                                    x2 += bbox[2] - bbox[0] + 10
+                                    bbox = draw.textbbox((x2, y2), heures, font=font_heures)
+                                    draw.text((x2, y2+5), heures, font=font_heures, fill=fill_color)
+                                    x2 += bbox[2] - bbox[0] + 10
+                                    bbox = draw.textbbox((x2, y2), minutes, font=font_minutes)
+                                    draw.text((x2, y2+10), minutes, font=font_minutes, fill=fill_color)
+                                    y_offset += textheight + 1
+                                else:
+                                    draw.text((x, y_offset), line, font=font, fill=fill_color)
+                                y_offset += textheight + 10
+                            img.save(save_path)
+                        except Exception as e:
+                            print(f"Failed to update wallpaper: {e}")
                                 </pre>
                                 <h5>Analyse :</h5>
                                 <p>Pour développer ce programme, j'ai utilisé Python pour lire les dates de qualification et les états de conformité des machines depuis des fichiers de configuration locaux. Le code extrait montre comment ces informations sont récupérées et utilisées pour créer une image de fond d'écran dynamique. Ce projet démontre ma compétence à utiliser Python pour automatiser des tâches complexes et améliorer la conformité des processus en fournissant des informations en temps réel aux utilisateurs.</p>
@@ -255,23 +255,165 @@
                             <div class="project-details">
                                 <h5>Description :</h5>
                                 <p>J'ai optimisé le processus d'envoi des pièces mesurées en réduisant les temps d'attente grâce à une gestion efficace des ressources et à l'utilisation d'une base de données pour la synchronisation.</p>
+                                <h5>Extrait de code :</h5>
+                                <pre>
+                def programme_boucle():
+                    compteur = 0
+                    while compteur < 100:
+                        compteur += 1
+                        listPCchemin = check_pc()
+                        pc = []
+                        for row in listPCchemin:
+                            path = row[0]
+                            lePC = os.path.dirname(path)
+                            pc.append(lePC)
+                        if current_date != update_current_date():
+                            current_date = update_current_date()
+                            file_handler = TimedRotatingFileHandler(os.path.join(log_dir, str(current_date) + 'CalculDeporte.log'), when='midnight', interval=1, backupCount=7)
+                            file_handler.setLevel(logging.DEBUG)
+                            file_handler.setFormatter(formatter)
+                            logger.addHandler(file_handler)
+                        for i in range(len(pc)):
+                            if (os.path.exists(os.path.join(pc[i] + "\\PieceFinie.txt"))) and (os.path.exists(os.path.join(pc[i] + "\\DataPieceEnCours.txt"))):
+                                fin_piece(i)
+                        relance = 0
+                        cursor.execute("SELECT id FROM PriorisationCalcul WHERE IndicateurEtat = '0'")
+                        min_row = cursor.fetchone()
+                        min_id = min_row[0] if min_row else None
+                        cursor.execute("SELECT NoPC FROM LancementCalculPath")
+                        rows = cursor.fetchall()
+                        numPC = rows
+                        numPC = []
+                        for i in range(len(numPC)):
+                            pieceRelance = [i] = "Vide"
+                        for i in range(len(pc)):
+                            cursor.execute("SELECT id FROM PriorisationCalcul WHERE IndicateurEtat = '4' AND NoPC = ?", numPC[i])
+                            min_row = cursor.fetchone()
+                            relanceID = min_row[0] if min_row else None
+                            if relanceID is not None:
+                                relance = 1
+                                pieceRelance[i] = relanceID
+                        cursor.execute("SELECT id FROM PriorisationCalcul WHERE IndicateurEtat = '0'")
+                        min_row = cursor.fetchone()
+                        min_id = min_row[0] if min_row else None
+                        if (min_id is not None and relance == 1) or min_id is not None or relance == 1:
+                            envoie = True
+                            sauv_min_id = min_id
+                            if min_id is None:
+                                nb = len(numPC)
+                            else:
+                                nb = len(pc)
+                            for i in range(nb):
+                                min_id = sauv_min_id
+                                if pieceRelance[i] != "Vide":
+                                    min_id = pieceRelance[i]
+                                if (not(os.path.exists(os.path.join(pc[i] + "\\DataPieceEnCours.txt"))) and envoie) :
+                                    cursor.execute("SELECT Article, IndicePlan, Operation FROM PriorisationCalcul WHERE id = ?", min_id)
+                                    row = cursor.fetchone()
+                                    if row:
+                                        Article = row[0]
+                                        IndicePlan = row[1]
+                                        Operation = row[2]
+                                        logger.info("La piece est dans le dossier : " + chemin_pieces + '\\' + str(Article) + '\\' + str(IndicePlan) + '\\' + str(Operation))
+                                        try:
+                                            src = os.path.join(chemin_pieces, str(Article), str("Indice " + IndicePlan), str(Operation), 'Remote.ask')
+                                            file_path = os.path.join(pc[i] + '\\REMOTE.ANS')
+                                            dest = os.path.join(pc[i])
+                                            if not os.path.exists(pc[i] + "\\BackUp"):
+                                                os.makedirs(pc[i] + "\\BackUp")
+                                            destBackUp = os.path.join(pc[i] + "\\BackUp")
+                                            if os.path.exists(src):
+                                                chemin_pc = pc[i] + "\\remote.ask"
+                                                if relance == 1:
+                                                    cursor.execute("UPDATE PriorisationCalcul SET IndicateurEtat = '5', NoPC = (SELECT NoPC FROM LancementCalculPath WHERE CAST(Path AS NVARCHAR(255)) = ?) WHERE id = ?", (chemin_pc, min_id))
+                                                    conn.commit()
+                                                else:
+                                                    cursor.execute("UPDATE PriorisationCalcul SET IndicateurEtat = '1', NoPC = (SELECT NoPC FROM LancementCalculPath WHERE CAST(Path AS NVARCHAR(255)) = ?) WHERE id = ?", (chemin_pc, min_id))
+                                                    conn.commit()
+                                                cursor.execute("SELECT [OF] AS NumeroOF, Serial, Operateur, IndicateurEtat FROM PriorisationCalcul WHERE id = ?", min_id)
+                                                row = cursor.fetchone()
+                                                if row:
+                                                    NumeroOf = row[0]
+                                                    Serial = row[1]
+                                                    Operateur = row[2]
+                                                    IndicateurEtat = row[3]
+                                                data_piece(i, min_id, Article, NumeroOf, Serial, Operation, IndicePlan, Operateur, IndicateurEtat)
+                                                shutil.copy2(src, dest)
+                                                shutil.copy2(src, destBackUp)
+                                                logger.info("J'ai copie le fichier Remote.ask dans le PC : " + os.path.basename(pc[i]))
+                                                if check_content(file_path, i):
+                                                    logger.info("REMOTE.ANS du " + os.path.basename(pc[i]) + " est bien OK")
+                                                else:
+                                                    erreur(min_id, "Manque fichier Remote.ANS")
+                                                    logger.error("ERREUR : Manque programme calcul")
+                                                envoie = False
+                                            else:
+                                                erreur(min_id, "Manque fichier Remote.ask")
+                                                logger.error("ERREUR : Manque fichier Remote.ask")
+                                                envoie = False
+                                        except Exception as e:
+                                            erreur(min_id, "Erreur copie fichier Remote.ask")
+                                            logger.error("ERREUR : Copie du fichier Remote.ask " + str(e))
+                                            envoie = False
+                                    else:
+                                        erreur(min_id, "La pièce n'a pas ete trouvee")
+                                        logger.error("ERREUR : La pièce n'a pas ete trouvee")
+                                        envoie = False
+                        time.sleep(1)
+                                </pre>
                                 <h5>Analyse :</h5>
-                                <p>Le code et les analyses montrent une réduction significative des temps d'exécution et une meilleure utilisation des ressources disponibles.</p>
+                                <p>La fonction <code>programme_boucle</code> optimise l'envoi des pièces mesurées en réduisant les temps d'attente et en utilisant efficacement les ressources disponibles. Elle vérifie l'état des PC de calcul, met à jour les fichiers de log quotidiennement, et gère les relances automatiques en cas d'échec. Ce projet illustre ma capacité à améliorer les performances des programmes dans des contextes contraints, en appliquant des techniques de gestion des ressources et de synchronisation.</p>
                             </div>
                         </li>
                         <li><strong>Traitement de données CSV en sortie du boîtier METRO</strong> : Optimisation du traitement des données pour créer un fichier CSV plus complet et accessible, améliorant ainsi la performance du système.
                             <div class="project-details">
                                 <h5>Description :</h5>
                                 <p>J'ai optimisé le traitement des données CSV en consolidant plusieurs fichiers en un seul fichier complet, ce qui a amélioré la performance et l'accessibilité des données.</p>
+                                <h5>Extrait de code :</h5>
+                                <pre>
+                def compter_lignes_non_vides(chemin_csv):
+                    try:
+                        df = pd.read_csv(chemin_csv, header=None, encoding='latin1')
+                        non_empty_lines = df.dropna(how='all').shape[0]
+                        return non_empty_lines
+                    except Exception as e:
+                        print(f"Erreur lors de la lecture du fichier CSV : {e}")
+                        return 0
+                
+                def nettoyer_donnees(data):
+                    nettoye = re.sub(r'Field \d+:', '', data)
+                    return nettoye
+                
+                def extract_values(data, nbCotes):
+                    results = {}
+                
+                    for i in range(1, nbCotes + 1):
+                        key = f'K2002/{i}'
+                        match = re.search(r'\((.*?)\)', data.get(key, ''))
+                        if match:
+                            results[key] = match.group(1)
+                        else:
+                            results[key] = 'Non trouvé'
+                
+                    keys_to_extract = ['K2101', 'K2110', 'K2111', 'K2213', 'K2006']
+                    for key_base in keys_to_extract:
+                        for i in range(1, nbCotes + 1):
+                            key = f'{key_base}/{i}'
+                            if key in data:
+                                results[key] = data[key]
+                            else:
+                                results[key] = 'Non trouvé'
+                    return results
+                                </pre>
                                 <h5>Analyse :</h5>
-                                <p>Mon analyse.</p>
+                                <p>Le code extrait montre plusieurs fonctions optimisées pour le traitement des données CSV. La fonction <code>compter_lignes_non_vides</code> lit efficacement un fichier CSV et compte les lignes non vides, tandis que <code>nettoyer_donnees</code> et <code>extract_values</code> montrent comment les données sont nettoyées et extraites. Ces optimisations ont permis de réduire le temps d'exécution et d'améliorer la précision des résultats, démontrant ma capacité à optimiser les applications pour répondre à des critères spécifiques tels que la performance et l'efficacité.</p>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-    </section>
+    </section>    
     
     <section id="contact">
         <div class="content" data-aos="fade-up">
