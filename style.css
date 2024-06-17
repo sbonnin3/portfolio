@@ -64,10 +64,10 @@ header {
     background: #000000;
     color: #E9AE3F;
     padding: 1rem 0;
-    position: fixed; /* Fixe la navbar en haut */
+    position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1000; /* Assure que la navbar reste au-dessus des autres éléments */
+    z-index: 1000;
 }
 
 nav {
@@ -211,6 +211,24 @@ section h2 {
     border: 1px solid #BD2949;
 }
 
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    color: #BD2949;
+    margin-right: 0.5rem;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -245,6 +263,17 @@ footer {
     color: #E9AE3F;
     text-align: center;
     padding: 1rem 0;
+}
+
+/* Enlever la mise en forme par défaut des liens */
+a {
+    color: inherit; /* Utilise la couleur du texte par défaut */
+    text-decoration: none; /* Enlève le soulignement */
+}
+
+a:hover {
+    color: #BD2949; /* Change la couleur au survol si nécessaire */
+    text-decoration: underline; /* Optionnel : ajoute un soulignement au survol */
 }
 
 /* Styles pour le carrousel */
