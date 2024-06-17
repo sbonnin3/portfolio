@@ -105,35 +105,30 @@
                                 <p>J'ai développé une application en Python permettant de synchroniser les données des mesures avec les PC de calculs en utilisant une base de données pour la gestion des tâches.</p>
                                 <h5>Extrait de code :</h5>
                                 <pre>
-    def synchronize_measurements_to_calculations(measurements):
-        # Connexion à la base de données
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
-        
-        for measurement in measurements:
-            # Sélectionner le premier PC de calcul disponible
-            cursor.execute("SELECT id FROM calculations WHERE status='available' LIMIT 1")
-            calc_pc_id = cursor.fetchone()[0]
-            
-            # Mettre à jour le statut du PC de calcul
-            cursor.execute("UPDATE calculations SET status='busy' WHERE id=?", (calc_pc_id,))
-            
-            # Enregistrer la mesure dans la base de données
-            cursor.execute("INSERT INTO measurements (data, calc_pc_id) VALUES (?, ?)", (measurement, calc_pc_id))
-        
-        conn.commit()
-        conn.close()
+                # Gestion des erreurs et mise à jour de l'état d'une pièce
+                def erreur(id, text_erreur):
+                    cursor.execute("UPDATE PriorisationCalcul SET IndicateurEtat = '3' WHERE id = ?", id)
+                    conn.commit()
+                    cursor.execute("SELECT * FROM PriorisationCalcul WHERE id = ?", id)
+                    piece_data = cursor.fetchone()
+                    if piece_data:
+                        cursor.execute("UPDATE PriorisationCalcul SET Erreur = ? WHERE id = ?", (text_erreur, id))
+                        conn.commit()
+                        cursor.execute("SELECT * FROM PriorisationCalcul WHERE id = ?", id)
+                        piece_data = cursor.fetchone()
+                        logger.error("Erreur avec la piece avec l'ID " + str(id) + " est : " + str(piece_data))
+                    else:
+                        logger.error("Aucune piece trouvee avec l'ID " + str(id))
                                 </pre>
-                                <h5>Preuves :</h5>
                                 <h5>Analyse :</h5>
-                                <p>Mon analyse.</p>
+                                <p>La fonction <code>erreur</code> gère les erreurs survenant durant le traitement des pièces. Elle met à jour l'état des pièces dans la base de données, enregistre les détails de l'erreur, et logge les événements pour faciliter le débogage. Cela montre une bonne pratique de gestion des transactions, de validation des données, et de documentation via les logs, en ligne avec les compétences de développement d'applications.</p>
                             </div>
                         </li>
-                        <li><strong>Traitement de données CSV en sortie du boîtier METRO</strong> : Création d'un fichier exécutable pour gérer et unifier les données des mesures en un seul fichier CSV complet.
+                        <br>
+                        <li><strong>Traitement de données CSV en sortie du boîtier METRO</strong> : Optimisation du traitement des données pour créer un fichier CSV plus complet et accessible, améliorant ainsi la performance du système.
                             <div class="project-details">
                                 <h5>Description :</h5>
                                 <p>J'ai développé un exécutable qui unifie les données de plusieurs fichiers en un fichier CSV complet et accessible, améliorant ainsi le traitement des données et leur utilisation.</p>
-                                <h5>Extrait de code :</h5>
                                 <h5>Preuves :</h5>
                                 <p>Diagramme</p>
                                 <img src="./images/DiagrammeProjet2.png" alt="DiagrammeProjet2">
@@ -143,20 +138,36 @@
                                 <p>Données modifiées</p>
                                 <img src="./images/CSVModifie.PNG" alt="CSVModifie">
                                 <h5>Analyse :</h5>
-                                <p>Mon analyse.</p>
+                                <p>Le projet visait à améliorer la gestion des données de mesure en les consolidant en un seul fichier CSV. Cela a impliqué la conception et le développement d'un programme optimisé en Python. La validation et les tests ont montré que le programme traitait les données rapidement et efficacement, améliorant ainsi l'accessibilité et l'utilisation des données. Le nouveau fichier CSV est plus structuré et permet une meilleure analyse des données, ce qui répond aux attentes de la compétence en termes de développement et d'optimisation des applications.</p>
                             </div>
                         </li>
+                        <br>
                         <li><strong>Rappel de qualification de machine par fond d'écran</strong> : Développement d'un programme qui anime un fond d'écran pour mettre à jour les données, pour rappeler les délais avant la prochaine qualifications de machine à effectuer.
                             <div class="project-details">
                                 <h5>Description :</h5>
-                                <p>J'ai créé un fond d'écran animé pour afficher des rappels de qualifications de machine. Ce projet, bien qu'encore en cours de déploiement, est conçu pour inciter le personnel à réaliser les qualifications avant la non-conformité de la machine.</p>
-                                <h5>Extrait de code :</h5>
+                                <p>J'ai créé un fond d'écran animé pour afficher des rappels de qualifications de machine sur l'ensemble des PC de mesures de l'atelier. Ce projet, bien qu'encore en cours de déploiement, est conçu pour inciter le personnel à réaliser les qualifications avant la non-conformité de la machine. Cela nécessite la lecture de fichiers du PC pour récupérer la date et l'état de la dernière qualification de machine.</p>
                                 <h5>Preuves :</h5>
                                 <p>Fonds d'écran</p>
                                 <img src="./images/FondCONFORME.png" alt="FondCONFORME">
                                 <img src="./images/FondNONCONFORME.png" alt="FondNONCONFORME">
                                 <h5>Analyse :</h5>
-                                <p>Mon analyse.</p>
+                                <p>
+                                    <strong>Objectifs et Contexte :</strong><br>
+                                    Les utilisateurs des machines de mesure dans l'atelier lançaient souvent des mesures sans savoir si la machine était qualifiée ou non, entraînant des risques de non-conformité et des arrêts de production imprévus. Pour résoudre ce problème, j'ai développé un programme qui anime un fond d'écran afin d'informer les utilisateurs du temps restant avant la prochaine qualification de la machine, ou si la qualification est non conforme, afin qu'ils puissent réaliser la qualification avant de lancer une nouvelle mesure.<br><br>
+                                    <strong>Méthodologie et Outils Utilisés :</strong><br>
+                                    <ul>
+                                        <li>Technologies utilisées : Python pour le développement du script, transformation du script en fichier exécutable (.exe) pour une utilisation facile sur les machines de l'atelier, et SQLite pour stocker et gérer les données de qualification des machines.</li>
+                                        <li>Fonctionnement : L'exécutable recherche des fichiers locaux sur le PC pour récupérer la date et l'état de la dernière qualification. Si la machine est qualifiée, le fond d'écran affiche le temps restant avant la prochaine qualification. Si la machine n'est pas qualifiée, il indique à l'utilisateur de réaliser la qualification avant de lancer une nouvelle mesure.</li>
+                                        <li>Défis techniques : Assurer la mise à jour dynamique du fond d'écran en fonction des données de qualification et garantir que l'exécutable fonctionne de manière fiable sur différents PC de l'atelier.</li>
+                                    </ul><br>
+                                    <strong>Résultats et Impact :</strong><br>
+                                    <ul>
+                                        <li>Améliorations apportées : Réduction significative des risques de non-conformité en informant les utilisateurs du statut de qualification des machines avant de lancer des mesures. Amélioration de l'efficacité opérationnelle en minimisant les arrêts de production dus à des qualifications non réalisées.</li>
+                                        <li>Impact sur les utilisateurs : Les utilisateurs sont désormais informés en temps réel de l'état de qualification de leur machine, ce qui les aide à planifier et à réaliser les qualifications en temps voulu, renforçant la discipline de conformité et contribuant à une meilleure gestion des équipements de mesure.</li>
+                                    </ul><br>
+                                    <strong>Leçons Apprises :</strong><br>
+                                    Ce projet a mis en évidence l'importance d'une communication claire et visuelle dans un environnement de production pour améliorer la conformité et l'efficacité. À l'avenir, il serait intéressant d'intégrer des notifications supplémentaires, telles que des alertes par email ou SMS, pour renforcer encore plus le rappel des qualifications et s'assurer que les utilisateurs sont toujours informés de l'état de leurs machines.
+                                </p>
                             </div>
                         </li>
                     </ul>
@@ -192,7 +203,7 @@
                 </div>
             </div>
         </div>
-    </section>      
+    </section>
     
     <section id="contact">
         <div class="content" data-aos="fade-up">

@@ -1,3 +1,252 @@
 git add .
 git commit -m "Commit"
 git push
+
+
+
+
+
+maintenant je souhaites que tu fasses la même chose pour la partie d'analyse de données csv :
+je t'envoie le code suivant :
+import pandas as pd
+import re
+import os
+import fnmatch
+import csv
+import psutil
+
+chemin_initial = '\\\\fpnITP16\\MetroDataServer\\PrivateFolder\\172_25_196_214\\'
+chemin_active_part = '\\\\fpnITP16\\MetroDataServer\\PublicFolder\\172_25_196_214\\active_part\\active_part.dfd'
+chemin_final = '\\\\fpnITP16\\MetroDataServer\\PublicFolder\\172_25_196_214\\'
+
+def find_first_csv(directory):
+    files = os.listdir(directory)
+    files.sort()
+    csv_files = fnmatch.filter(files, '*.csv')
+    if csv_files:
+        return csv_files[0]
+    else:
+        return None
+
+def compter_lignes_non_vides(chemin_csv):
+    try:
+        df = pd.read_csv(chemin_csv, header=None, encoding='latin1')
+        non_empty_lines = df.dropna(how='all').shape[0]
+        return non_empty_lines
+    except Exception as e:
+        print(f"Erreur lors de la lecture du fichier CSV : {e}")
+        return 0
+
+def nettoyer_donnees(data):
+    nettoye = re.sub(r'Field \d+:', '', data)
+    return nettoye
+
+def extraire_valeur_donnee(cle_recherche, ligne):
+    try:
+        df = pd.read_csv(chemin_initial, header=None, encoding='latin1')
+        data = ','.join(df.iloc[ligne].astype(str))
+
+        data_nettoye = nettoyer_donnees(data)
+        pairs = data_nettoye.split(',')
+        for pair in pairs:
+            if '=' in pair:
+                key, value = pair.split('=', 1)
+                if key.strip() == cle_recherche:
+                    return value.strip()
+    except Exception as e:
+        print(f"Erreur lors de la lecture du fichier: {e}")
+    return " "
+
+def supprimer_fichier(filepath):
+    try:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+        else:
+            print(f"Le fichier {filepath} n'existe pas.")
+    except Exception as e:
+        print(f"Une erreur est survenue lors de la suppression du fichier : {e}")
+
+def fermer_processus_par_fichier(file_path):
+    for proc in psutil.process_iter(['pid', 'name', 'open_files']):
+        try:
+            if proc.info['open_files']:
+                for fichier in proc.info['open_files']:
+                    if fichier.path == file_path:
+                        proc.terminate()
+                        try:
+                            proc.wait(timeout=3)
+                        except psutil.NoSuchProcess:
+                            pass
+                        except psutil.TimeoutExpired:
+                            proc.kill()
+                        return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    return False
+
+def read_dfd_file(filepath):
+    data = {}
+    with open(filepath, 'r', encoding='latin1') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                key, value = line.split(' ', 1)
+                data[key.strip()] = value.strip()
+    return data
+
+def extract_nombre_cotes(data):
+    results = {}
+    keys_to_extract = [
+        'K0100',
+    ]
+    
+    for key in keys_to_extract:
+        results[key] = data.get(key, 'Non trouvé')
+
+    return results
+
+def extract_values(data, nbCotes):
+    results = {}
+
+    for i in range(1, nbCotes + 1):
+        key = f'K2002/{i}'
+        match = re.search(r'\((.*?)\)', data.get(key, ''))
+        if match:
+            results[key] = match.group(1)
+        else:
+            results[key] = 'Non trouvé'
+
+    keys_to_extract = ['K2101', 'K2110', 'K2111', 'K2213', 'K2006']
+    for key_base in keys_to_extract:
+        for i in range(1, nbCotes + 1):
+            key = f'{key_base}/{i}'
+            if key in data:
+                results[key] = data[key]
+            else:
+                results[key] = 'Non trouvé'
+    return results
+
+nbetalonnage = 0
+
+data = read_dfd_file(chemin_active_part)
+extracted_values = extract_nombre_cotes(data)
+
+nombre_cotes = []
+for key, value in extracted_values.items():
+    nombre_cotes.append(value)
+nbCotes = int(nombre_cotes[0])
+
+data = read_dfd_file(chemin_active_part)
+extracted_values = extract_values(data, nbCotes)
+donnees = []
+for key, value in extracted_values.items():
+    donnees.append(value)
+
+first_csv = find_first_csv(chemin_initial)
+if first_csv:
+    chemin_csv = os.path.join(chemin_initial, first_csv)
+    nombreDeFichiers = compter_lignes_non_vides(chemin_csv)
+else:
+    print("Aucun fichier CSV trouvé.")
+
+first_csv = find_first_csv(chemin_initial)
+ip = os.path.splitext(first_csv)[0]
+ip = ip.replace("_", ".")
+chemin_initial = os.path.join(chemin_initial, first_csv)
+
+for l in range(nombreDeFichiers):
+    if extraire_valeur_donnee('PRESET', l) == " ":
+        listeNombres = []
+        for i in range(1, nbCotes + 1):
+            listeNombres.append(i)
+        row_id = ["Row_ID"]
+        timestamp = ["TimeStamp"]
+        reference = ["Reference"]
+        operation = ["Operation"]
+        num_operation = ["Num_operation"]
+        program_multicotes = ["Program_MultiCotes"]
+        reference_rev = ["Reference_rev"]
+        rev_program_multicotes = ["Program_MultiCotes_rev"]
+        multicotes_ip = ["MultiCotes_IP"]
+        multicotes_id = ["MultiCotes_ID"]
+        montage_id = ["Montage_ID"]
+        serial_number = ["Serial_number"]
+        manufacturing_order = ["Manufacturing_Order"]
+        operator = ["Operator"]
+        item = ["Item"]
+        nominal = ["Nominal"]
+        upper_tol = ["upper_tol"]
+        lower_tol = ["lower_tol"]
+        measured_value = ["Measured_value"]
+        measured_value_status = ["Measured_value_status"]
+        item_status = ["Item_Status"]
+        protocol_rev = ["Protocol_rev"]
+
+        for i in range(1, len(listeNombres) + 1):
+            row_id.append(str(i))
+            item.append(str(i))
+            multicotes_ip.append(str(ip))
+
+        for j in range(6):
+            for i in range(nbCotes):
+                if j == 0:
+                    if "P" in donnees[nbCotes * j + i]:
+                        item_status.append("PROCESS")
+                    else:
+                        item_status.append("FINI")
+                elif j == 1:
+                    nominal.append(donnees[nbCotes * j + i])
+                elif j == 2:
+                    lower_tol.append(donnees[nbCotes * j + i])
+                elif j == 3:
+                    upper_tol.append(donnees[nbCotes * j + i])
+                elif j == 4:
+                    measured_value.append(donnees[nbCotes * j + i])
+                elif j == 5:
+                    protocol_rev.append(donnees[nbCotes * j + i])
+                else:
+                    print("Erreur")
+
+        heure = extraire_valeur_donnee('TIME', l)
+        ref = extraire_valeur_donnee('PART', l)
+        if ref != " ":
+            match = re.match(r'(\d+)', ref)
+            ref = match.group(1)
+
+        for i in range(nbCotes + 1):
+            timestamp.append(extraire_valeur_donnee('DATE', l) + " " + heure[:5])
+            reference.append(ref)
+            operation.append(extraire_valeur_donnee('Operation', l))
+            num_operation.append(extraire_valeur_donnee('Num_Operation', l))
+            program_multicotes.append(extraire_valeur_donnee('Program_MultiCotes', l))
+            reference_rev.append(extraire_valeur_donnee('Reference_rev', l))
+            rev_program_multicotes.append(extraire_valeur_donnee('Rev_Program_MultiCotes', l))
+            multicotes_id.append(extraire_valeur_donnee('MultiCotes_ID', l))
+            montage_id.append(extraire_valeur_donnee('Montage_ID', l))
+            serial_number.append(extraire_valeur_donnee('Serial_number', l))
+            manufacturing_order.append(extraire_valeur_donnee('OF', l))
+            operator.append(extraire_valeur_donnee('Operateur', l))
+
+        for i in range(1, nbCotes + 1):
+            if ((float(lower_tol[i]) + float(nominal[i])) <= float(measured_value[i]) <= (float(upper_tol[i]) + float(nominal[i]))):
+                measured_value_status.append("OK")
+            else:
+                measured_value_status.append("KO")
+
+        data = []
+        for i in range(nbCotes + 1):
+            ligne = [row_id[i] + ";" + timestamp[i] + ";" + reference[i] + ";" + operation[i] + ";" + num_operation[i] + ";" + program_multicotes[i] + ";" + reference_rev[i] + ";" + rev_program_multicotes[i] + ";" + multicotes_ip[i] + ";" + multicotes_id[i] + ";" + montage_id[i] + ";" + serial_number[i] + ";" + manufacturing_order[i] + ";" + operator[i] + ";" + item[i] + ";" + nominal[i] + ";" + upper_tol[i] + ";" + lower_tol[i] + ";" + measured_value[i] + ";" + measured_value_status[i] + ";" + item_status[i] + ";" + protocol_rev[i]]
+            data.append(ligne)
+
+        file_path = chemin_final + "Fichier" + str(l - nbetalonnage) + "_" + first_csv
+
+        with open(file_path, mode='w', newline='') as fichier:
+            writer = csv.writer(fichier, delimiter=',')
+            writer.writerows(data)
+    else:
+        nbetalonnage = nbetalonnage + 1
+
+if fermer_processus_par_fichier(chemin_initial):
+    supprimer_fichier(chemin_initial)
+else:
+    supprimer_fichier(chemin_initial)

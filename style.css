@@ -213,19 +213,18 @@ section h2 {
 
 .skills-container {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .skill {
-    flex: 1;
+    flex: 1 1 calc(50% - 2rem);
     margin: 1rem;
     padding: 1rem;
     background: #ecf0f1;
     border-radius: 8px;
-    text-align: left;
     border: 1px solid #BD2949;
-    max-width: 45%;
+    box-sizing: border-box;
 }
 
 .skill h3 {
@@ -245,6 +244,33 @@ section h2 {
 
 .skill ul li {
     margin-bottom: 0.5rem;
+}
+
+.project-details {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.project-details h5 {
+    color: #BD2949;
+    margin-bottom: 0.5rem;
+}
+
+.project-details pre {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    overflow: auto;
+}
+
+.project-details img {
+    max-width: 100%;
+    margin-bottom: 1rem;
 }
 
 .contact-info {
