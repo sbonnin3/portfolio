@@ -245,6 +245,12 @@ section h2 {
     color: #BD2949;
 }
 
+.skill h6 {
+    margin-top: 1rem;
+    font-size: 14px;
+    color: #000000;
+}
+
 .skill ul {
     list-style-type: disc;
     margin-left: 20px;
